@@ -35,6 +35,7 @@ const handleSubmit = async () => {
       label="Full Name on the Doorbell"
       variant="outlined"
       :rules="[rules.required]"
+      data-test="address-fullname"
       required
     ></v-text-field>
 
@@ -43,6 +44,7 @@ const handleSubmit = async () => {
       label="Street and Number"
       variant="outlined"
       :rules="[rules.required]"
+      data-test="address-street"
       required
     ></v-text-field>
 
@@ -51,6 +53,7 @@ const handleSubmit = async () => {
       label="City"
       variant="outlined"
       :rules="[rules.required]"
+      data-test="address-city"
       required
     ></v-text-field>
 
@@ -60,10 +63,11 @@ const handleSubmit = async () => {
       variant="outlined"
       type="tel"
       :rules="[rules.required, rules.phone]"
+      data-test="address-phone"
       required
     ></v-text-field>
 
-    <v-btn type="submit" color="primary" block size="large" class="mt-4">
+    <v-btn type="submit" data-test="address-submit" color="primary" block size="large" class="mt-4">
       Continue to Payment
     </v-btn>
   </v-form>

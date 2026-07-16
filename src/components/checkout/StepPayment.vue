@@ -33,7 +33,7 @@ const handleSubmit = async () => {
     <!-- New Radio Button aligned to the options of the Type -->
     <v-radio-group v-model="checkoutData.payment.method" class="mb-4" :rules="[rules.required]">
       <v-radio label="Cash on Delivery" value="cash_on_delivery" color="primary"></v-radio>
-      <v-radio label="Credit Card / Debit Card" value="credit_card" color="primary"></v-radio>
+      <v-radio label="Credit Card / Debit Card" value="credit_card" data-test="pay-method-card" color="primary"></v-radio>
       <v-radio label="PayPal" value="paypal" color="primary"></v-radio>
     </v-radio-group>
 
@@ -46,6 +46,7 @@ const handleSubmit = async () => {
           variant="outlined"
           placeholder="0000 0000 0000 0000"
           :rules="[rules.required, rules.cardNumber]"
+          data-test="card-number"
           required
         ></v-text-field>
 
@@ -57,6 +58,7 @@ const handleSubmit = async () => {
               placeholder="MM/AA"
               variant="outlined"
               :rules="[rules.required, rules.cardExpiry]"
+              data-test="card-expiry"
               required
             ></v-text-field>
           </v-col>
@@ -69,6 +71,7 @@ const handleSubmit = async () => {
               type="password"
               maxlength="4"
               :rules="[rules.required, rules.cardCVC]"
+              data-test="card-cvc"
               required
             ></v-text-field>
           </v-col>
@@ -104,8 +107,8 @@ const handleSubmit = async () => {
     </v-expand-transition>
 
     <div class="d-flex gap-2 mt-6">
-      <v-btn variant="outlined" @click="prevStep" class="flex-grow-1">Back</v-btn>
-      <v-btn type="submit" color="primary" class="flex-grow-1">Order Summary</v-btn>
+      <v-btn variant="outlined" data-test="payment-back" @click="prevStep" class="flex-grow-1">Back</v-btn>
+      <v-btn type="submit" data-test="payment-submit" color="primary" class="flex-grow-1">Order Summary</v-btn>
     </div>
   </v-form>
 </template>

@@ -33,7 +33,7 @@ const isCartOpen = ref(false)
         <v-spacer></v-spacer>
 
         <!-- Button Cart with Reactive Badge, now open Drawer on click -->
-        <v-btn icon class="mr-4" @click="isCartOpen = !isCartOpen">
+        <v-btn icon class="mr-4" data-test="open-cart-btn" @click="isCartOpen = !isCartOpen">
           <v-badge
             :content="totalItemsCount"
             :model-value="totalItemsCount > 0"

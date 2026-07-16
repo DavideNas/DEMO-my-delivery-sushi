@@ -64,6 +64,7 @@ const emit = defineEmits<{
         rounded="md"
         :prepend-icon="item.available ? 'mdi-cart-plus' : 'mdi-alert-circle-outline'"
         class="font-weight-bold text-none add-to-cart-btn"
+        data-test="add-to-cart-btn"
         @click="emit('add-to-cart', item)"
       >
         <!-- Il testo cambia dinamicamente in base alla disponibilità -->

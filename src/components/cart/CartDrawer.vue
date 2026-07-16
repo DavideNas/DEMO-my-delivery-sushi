@@ -91,6 +91,7 @@ const startCheckout = () => {
         rounded="lg"
         class="font-weight-bold text-none mb-2"
         prepend-icon="mdi-cash-register"
+        data-test="proceed-to-checkout-btn"
         @click="startCheckout"
       >
         Proceed to Checkout

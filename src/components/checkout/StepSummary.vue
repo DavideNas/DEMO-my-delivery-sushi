@@ -64,13 +64,13 @@ const handleConfirmOrder = () => {
       </div>
       <div class="border-t mt-2 pt-2 d-flex justify-space-between font-weight-bold text-subtitle-1">
         <span>Total:</span>
-        <span class="text-primary">{{ totalPrice.toFixed(2) }}€</span>
+        <span class="text-primary" data-test="summary-total-price">{{ totalPrice.toFixed(2) }}€</span>
       </div>
     </div>
 
     <div class="d-flex gap-2 mt-4">
-      <v-btn variant="outlined" @click="prevStep" class="flex-grow-1">Back</v-btn>
-      <v-btn color="success" class="flex-grow-1" @click="handleConfirmOrder">Send Order 🚀</v-btn>
+      <v-btn variant="outlined" data-test="summary-back" @click="prevStep" class="flex-grow-1">Back</v-btn>
+      <v-btn color="success" data-test="confirm-order-btn" class="flex-grow-1" @click="handleConfirmOrder">Send Order 🚀</v-btn>
     </div>
   </div>
 </template>
