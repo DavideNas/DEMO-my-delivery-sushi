@@ -1,22 +1,38 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useCart } from '@/composables/useCart'
+import { usePermissions } from '@/composables/usePermissions'
 import CartLineItem from './CartLineItem.vue'
 // Import new stepper component for checkout
 import CheckoutStepper from '@/components/checkout/CheckoutStepper.vue'
+import LoginModal from '@/components/auth/LoginModal.vue'
+import RegisterModal from '@/components/auth/RegisterModal.vue'
 
 // Synchronize open/close state of the drawer with App.vue
 const model = defineModel<boolean>({ default: false })
 
 const { cartItems, totalPrice, totalItemsCount, addToCart, removeFromCart, clearCart } = useCart()
+const { hasRole } = usePermissions()
 
 // State to control open/close of the checkout stepper modal
 const isCheckoutOpen = ref(false)
+const isLoginOpen = ref(false)
+const isRegisterOpen = ref(false)
 
 // Function which is a bridge between the cart drawer and the checkout stepper modal
 const startCheckout = () => {
   model.value = false         // Close the cart drawer
-  isCheckoutOpen.value = true // Open the checkout stepper modal
+  if (hasRole('user') || hasRole('admin')) {
+    // User has Permissions, then open popup
+    isCheckoutOpen.value = true // Open the checkout stepper modal
+  } else {
+    // It's a guest, open modal login
+    isLoginOpen.value = true
+  }
+}
+
+const handleCheckoutSuccess = () => {
+  isCheckoutOpen.value = true
 }
 </script>
 
@@ -97,19 +113,32 @@ const startCheckout = () => {
         Proceed to Checkout
       </v-btn>
 
+      
       <v-btn
-        variant="text"
-        block
-        color="error"
-        size="small"
-        class="text-none font-weight-bold"
-        prepend-icon="mdi-trash-can-outline"
-        @click="clearCart"
+      variant="text"
+      block
+      color="error"
+      size="small"
+      class="text-none font-weight-bold"
+      prepend-icon="mdi-trash-can-outline"
+      @click="clearCart"
       >
-        Clear Cart
-      </v-btn>
-    </div>
-  </v-navigation-drawer>
+      Clear Cart
+    </v-btn>
+  </div>
+</v-navigation-drawer>
+
+  <!-- LOGIN MODAL -->
+  <LoginModal 
+    v-model="isLoginOpen" 
+    @success="handleCheckoutSuccess"
+    @switch-to-register="isRegisterOpen = true" />
+
+  <!-- REGISTER MODAL -->
+  <RegisterModal 
+    v-model="isRegisterOpen"
+    @success="handleCheckoutSuccess"
+    @switch-to-login="isLoginOpen = true" />
 
   <!-- Checkout Stepper Modal -->
   <v-dialog v-model="isCheckoutOpen" max-width="600" transition="dialog-bottom-transition" persistent>
