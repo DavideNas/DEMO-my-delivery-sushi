@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/auth';
 import type { UserPermission, UserRole } from '@/types/auth';
 
 export function usePermissions() {
