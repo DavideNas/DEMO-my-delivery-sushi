@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import type { UserPermission, UseRole } from '@/types/auth'
+import type { UserPermission, UserRole } from '@/types/auth'
 
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/LoginView.vue'
-import AdminDashboard from '../views/admin/AdminDashboard.vue'
-import UnauthorizedView from '../views/UnauthorizedView.vue'
+import HomeView from '@/views/HomeView.vue'
+import LoginView from '@/views/LoginView.vue'
+import AdminDashboard from '@/views/admin/AdminDashboard.vue'
+import UnauthorizedView from '@/views/UnauthorizedView.vue'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -35,14 +35,15 @@ const router = createRouter({
       name: 'admin-dashboard',
       component: AdminDashboard,
       meta: {
-        requiredAuth: true,
+        requiresAuth: true,
+        role: 'admin',
         requiredRoles: ['admin'],           // Only administrators can enter here
         requiredPermissions: ['orders:read-all']
       }
     },
     {
-      path: '/unhautorized',
-      name: 'unhautorized',
+      path: '/unauthorized',
+      name: 'unauthorized',
       component: UnauthorizedView
     },
     {

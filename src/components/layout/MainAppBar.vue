@@ -31,13 +31,31 @@ const handleLogout = () => {
       
       <!-- Logo e Titolo -->
       <v-app-bar-title class="font-weight-bold d-flex align-center">
-        <span class="mr-2">🍣</span> My Delivery Sushi
+        <router-link to="/" class="text-decoration-none color-white-link">
+          <div class="d-flex align-center cursor-pointer">
+            <v-icon icon="mdi-sushi" class="mr-2" color="primary"></v-icon>
+            <span class="mr-2">🍣</span>
+            <span class="font-weight-bold text-white">My Delivery Sushi</span>
+          </div>
+        </router-link>
       </v-app-bar-title>
 
       <v-spacer></v-spacer>
 
       <!-- ── SEZIONE UTENTE REATTIVA ── -->
       <div class="d-flex align-center mr-2">
+
+        <v-btn
+          v-if="isAuthenticated && authStore.currentRole === 'admin'"
+          to="/admin"
+          prepend-icon="mdi-shield-crown-outline"
+          variant="text"
+          color="white"
+          class="text-none mr-2"
+        >
+          Menu Admin
+        </v-btn>
+        
         <!-- Caso 1: Loggato -> Menu Dropdown -->
         <v-menu v-if="isAuthenticated" location="bottom end">
           <template #activator="{ props }">

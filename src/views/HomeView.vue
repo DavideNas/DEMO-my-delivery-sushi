@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import MenuList from '@/components/menu/MenuList.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <!-- The sushi menu now lives happily in the main Home -->
+    <MenuList />
   </main>
 </template>
