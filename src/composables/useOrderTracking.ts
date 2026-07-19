@@ -1,8 +1,11 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import type { Ref } from 'vue'
 import type { TrackingStatus, TrackingStep, UseOrderTrackingReturn } from '@/types/tracking';
+import { useNotificationStore } from '@/stores/notification';
 
 export function useOrderTracking(orderId: string): UseOrderTrackingReturn {
+    const notificationStore = useNotificationStore();
+
     // Typed reactive states
     const status = ref<TrackingStatus>('INITIALIZING');
     const error = ref<string | null>(null);
@@ -45,6 +48,7 @@ export function useOrderTracking(orderId: string): UseOrderTrackingReturn {
                 currentStep++;
 
                 if (status.value === 'DELIVERED') {
+                    notificationStore.show(`Order #${orderId}  delivered! Enjoy your meal 🍣`, 'success');
                     cleanup();
                 }
             }
@@ -71,6 +75,7 @@ export function useOrderTracking(orderId: string): UseOrderTrackingReturn {
             isReconnecting.value = false;
             status.value = 'FAILED';
             error.value = 'Unable to reconnect to the server after multiple network attempts.';
+            notificationStore.show(`Persistent connection error on order tracking #${orderId}.`, 'error');
         }
     };
 

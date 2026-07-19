@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import MainAppBar from './components/layout/MainAppBar.vue'
 import CartDrawer from './components/cart/CartDrawer.vue'
+import AppNotification from '@/components/common/AppNotification.vue'
 
 // Stato locale per gestire l'apertura del carrello drawer
 const isCartOpen = ref(false)
@@ -9,6 +10,9 @@ const isCartOpen = ref(false)
 
 <template>
   <v-app>
+    <!-- Global toast is always listening here -->
+    <AppNotification />
+
     <!-- La nuova Navbar estratta -->
     <MainAppBar @toggle-cart="isCartOpen = !isCartOpen" />
 
