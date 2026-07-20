@@ -1,3 +1,6 @@
+const ORDER_STATUSES = ['pending' | 'preparing' | 'delivered' | 'cancelled'] as const;
+export type OrderStatus = typeof ORDER_STATUSES[number];
+
 export interface OrderItem {
     menuItemId: string
     name: string
@@ -5,7 +8,6 @@ export interface OrderItem {
     price: number
 }
 
-export type OrderStatus = 'pending' | 'preparing' | 'delivered' | 'cancelled'
 
 export interface Order {
     id: string

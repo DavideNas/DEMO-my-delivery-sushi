@@ -2,12 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import type { UserPermission, UserRole } from '@/types/auth'
 
-import HomeView from '@/views/HomeView.vue'
-import LoginView from '@/views/LoginView.vue'
-import AdminDashboard from '@/views/admin/AdminDashboard.vue'
-import UnauthorizedView from '@/views/UnauthorizedView.vue'
-import UserOrdersView from '@/views/UserOrdersView.vue'
-
 declare module 'vue-router' {
   interface RouteMeta {
     requiresAuth?: boolean
@@ -23,24 +17,24 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: () => import('@/views/HomeView.vue'),  // Lazy loaded
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView,
+      component: () => import('@/views/LoginView.vue'),
     },
     {
       path: '/orders',
       name: 'UserOrders',
-      component: UserOrdersView,
+      component: () => import('@/views/UserOrdersView.vue'),
       meta: { requiresAuth: true }
     },
     // Admin routes protected by our RBAC
     {
       path: '/admin',
       name: 'admin-dashboard',
-      component: AdminDashboard,
+      component: () => import('@/views/admin/AdminDashboard.vue'),
       meta: {
         requiresAuth: true,
         requiredRoles: ['admin'],           // Only administrators can enter here
@@ -50,7 +44,7 @@ const router = createRouter({
     {
       path: '/unauthorized',
       name: 'unauthorized',
-      component: UnauthorizedView
+      component: () => ('@/views/UnauthorizedView.vue')
     },
     {
       path: '/about',

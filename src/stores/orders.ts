@@ -8,7 +8,7 @@ export const useOrdersStore = defineStore('orders', () => {
     // Internal function to generate 1.000 realistic orders distributed in the last month
     const generateMassiveMockOrders = () => {
         const names = ['James Smith', 'Patricia Brown', 'Robert Williams', 'John Davis', 'Jennifer Garcia', 'Michael Miller', 'William Rodriguez', 'Mary Johnson']
-        
+
         const sushiItems = [
             { name: 'Sake Nigiri', price: 4.00 },
             { name: 'Ebiten Uramaki', price: 12.00 },
@@ -16,8 +16,6 @@ export const useOrdersStore = defineStore('orders', () => {
             { name: 'Salmon temaki', price: 5.00 },
             { name: 'Poke Bowl Salmon', price: 15.00 }
         ]
-
-        const statuses: OrderStatus[] = ['pending', 'preparing', 'delivered', 'cancelled']
 
         const generatedOrders: Order[] = []
 

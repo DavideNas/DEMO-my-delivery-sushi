@@ -34,23 +34,23 @@ const orders = ref<Order[]>([
 
 <template>
   <v-container class="py-8" max-width="800">
-    <h1 class="text-h4 font-weight-bold mb-6">📦 I Miei Ordini</h1>
+    <h1 class="text-h4 font-weight-bold mb-6">📦 My Orders</h1>
 
     <v-row v-if="orders.length > 0">
       <v-col v-for="order in orders" :key="order.id" cols="12">
         <v-card variant="outlined" class="rounded-lg pa-4">
           <div class="d-flex flex-column flex-sm-row justify-space-between align-sm-center">
-            
+
             <!-- Order Info -->
             <div>
               <div class="text-subtitle-1 font-weight-bold color-primary">
-                Ordine #{{ order.id }}
+                Order #{{ order.id }}
               </div>
               <div class="text-caption text-grey">
-                Effettuato il: {{ order.date }}
+                Made on: {{ order.date }}
               </div>
               <div class="text-body-2 mt-1">
-                Prodotti ordinati: <strong>{{ order.itemsCount }} pezzi</strong>
+                Products ordered: <strong>{{ order.itemsCount }} pieces</strong>
               </div>
             </div>
 
@@ -59,15 +59,15 @@ const orders = ref<Order[]>([
               <div class="text-h6 font-weight-bold mr-6 text-right">
                 €{{ order.total.toFixed(2) }}
               </div>
-              <v-btn 
-                color="primary" 
+              <v-btn
+                color="primary"
                 variant="elevated"
                 rounded="md"
                 prepend-icon="mdi-map-marker-distance"
                 class="text-none"
                 @click="openTracking(order.id)"
               >
-                Traccia
+                Track
               </v-btn>
             </div>
 
@@ -79,16 +79,16 @@ const orders = ref<Order[]>([
     <!-- Fallback if there are no orders -->
     <v-sheet v-else class="text-center py-12 rounded-lg" border>
       <v-icon size="64" color="grey-lighten-1" class="mb-4">mdi-package-variant-closed-remove</v-icon>
-      <p class="text-grey-darken-1">Non hai ancora effettuato nessun ordine su My Delivery Sushi.</p>
-      <v-btn to="/" color="primary" class="mt-4 text-none">Ordina Ora</v-btn>
+      <p class="text-grey-darken-1">You haven't placed any orders on My Delivery Sushi yet..</p>
+      <v-btn to="/" color="primary" class="mt-4 text-none">Order Now</v-btn>
     </v-sheet>
 
     <!-- ENCAPSULATED TRACKING MODAL -->
-    <OrderTrackingModal 
-      v-if="isTrackingOpen" 
-      :is-open="isTrackingOpen" 
+    <OrderTrackingModal
+      v-if="isTrackingOpen"
+      :is-open="isTrackingOpen"
       :order-id="selectedOrderId"
-      @close="closeTracking" 
-    /> 
+      @close="closeTracking"
+    />
   </v-container>
 </template>

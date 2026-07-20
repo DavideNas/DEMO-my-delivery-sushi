@@ -1,5 +1,4 @@
 import { ref, onMounted, onUnmounted } from 'vue'
-import type { Ref } from 'vue'
 import type { TrackingStatus, TrackingStep, UseOrderTrackingReturn } from '@/types/tracking';
 import { useNotificationStore } from '@/stores/notification';
 
@@ -47,12 +46,16 @@ export function useOrderTracking(orderId: string): UseOrderTrackingReturn {
                 deliveryData.value = nextStep.message;
                 currentStep++;
 
+                if (status.value === 'OUT_FOR_DELIVERY') {
+                  notificationStore.show(`Order #${orderId} is out for Delivery... Be ready!`, 'info');
+                }
+
                 if (status.value === 'DELIVERED') {
                     notificationStore.show(`Order #${orderId}  delivered! Enjoy your meal 🍣`, 'success');
                     cleanup();
                 }
             }
-        }, 3000);
+        }, 2000);
     };
 
     const handleDisconnect = (reason: string): void => {

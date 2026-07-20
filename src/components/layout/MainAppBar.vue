@@ -28,7 +28,7 @@ const handleLogout = () => {
 <template>
   <v-app-bar color="primary" elevation="1" flat>
     <v-container class="d-flex align-center py-0">
-      
+
       <!-- Logo e Titolo -->
       <v-app-bar-title class="font-weight-bold d-flex align-center">
         <router-link to="/" class="text-decoration-none color-white-link">
@@ -55,7 +55,7 @@ const handleLogout = () => {
         >
           Menu Admin
         </v-btn>
-        
+
         <!-- Caso 1: Loggato -> Menu Dropdown -->
         <v-menu v-if="isAuthenticated" location="bottom end">
           <template #activator="{ props }">
@@ -70,7 +70,7 @@ const handleLogout = () => {
             </v-btn>
           </template>
 
-          <v-list density="comfortable" width="180" class="pa-1 rounded-lg">
+          <v-list density="comfortable" width="190" class="pa-1 rounded-lg">
             <v-list-item class="text-caption text-grey-darken-1">
               Role: <v-chip size="x-small" color="secondary" compact>{{ authStore.currentRole }}</v-chip>
             </v-list-item>
@@ -121,13 +121,13 @@ const handleLogout = () => {
   </v-app-bar>
 
   <!-- LOGIN MODAL -->
-  <LoginModal 
-    v-model="isLoginOpen" 
+  <LoginModal
+    v-model="isLoginOpen"
     @success="handleCheckoutSuccess"
     @switch-to-register="isRegisterOpen = true" />
 
   <!-- REGISTER MODAL -->
-  <RegisterModal 
+  <RegisterModal
     v-model="isRegisterOpen"
     @success="handleCheckoutSuccess"
     @switch-to-login="isLoginOpen = true" />
