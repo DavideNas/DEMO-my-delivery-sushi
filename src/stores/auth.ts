@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { authService } from '@/services/authService';
-import type { AuthState, User, UserPermission, UserRole } from '@/types/auth';
+import type { AuthState, UserPermission, UserRole } from '@/types/auth';
 
 export const useAuthStore = defineStore('auth', {
     state: (): AuthState => ({
@@ -51,7 +51,7 @@ export const useAuthStore = defineStore('auth', {
                 this.isLoading = false;
             }
         },
-    
+
 
         async initAuth() {
             if (!this.token) return ;
