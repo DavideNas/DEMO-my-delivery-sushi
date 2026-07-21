@@ -25,9 +25,15 @@ const vuetify = createVuetify({
 // 3. Register Vuetify inside Vue app of Storybook
 setup((app) => {
   app.use(vuetify)
+
+  // Fallback stub for router-link to avoid unresolved component warnings in stories
+  app.component('router-link', {
+    props: ['to'],
+    template: '<a :href="to"><slot /></a>',
+  })
 })
 
-// 4. Configurazione di Preview con parametri e decoratori
+// 4. Preview configuration
 const preview: Preview = {
   parameters: {
     controls: {
@@ -40,14 +46,11 @@ const preview: Preview = {
       config: {
         rules: [
           {
-            // Disable the rule only for elements injected by external devtools or plugins
             id: 'aria-prohibited-attr',
             selector: '*:not(.vue-devtools__anchor-btn)',
           },
         ],
       },
-      // Alternatively, you can tell axe-core to ignore that selector altogether:
-      element: '#storybook-root', // Only parse the root of your application, not the iframe/overlay
     },
   },
   decorators: [
