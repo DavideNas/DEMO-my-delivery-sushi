@@ -1,73 +1,37 @@
-# my-delivery-sushi
+# 🍣 Sushi App — Enterprise Vue 3 Platform
 
-This template should help get you started developing with Vue 3 in Vite.
+[![Vue 3](https://img.shields.io/badge/Vue-3.4+-4FC08D?logo=vuedotjs&logoColor=white)](https://vuejs.org/)
+[![Pinia](https://img.shields.io/badge/Pinia-2.1+-yellow?logo=vue.js&logoColor=white)](https://pinia.vuejs.org/)
+[![Vuetify 3](https://img.shields.io/badge/Vuetify-3.5+-1867C0?logo=vuetify&logoColor=white)](https://vuetifyjs.com/)
+[![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?logo=playwright&logoColor=white)](https://playwright.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-## Recommended IDE Setup
+Un'applicazione e-commerce moderna basata sull'architettura Vue 3, progettata per simulare la transizione da un contesto legacy (*brownfield*) a una piattaforma scalabile ed altamente testabile.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## 🏛️ Architettura e Decisioni Tecniche
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+* **Role-Based Access Control (RBAC)**: Autenticazione mockata via JWT con controllo dei permessi integrato (`guest`, `user`, `admin`) e direttive/componenti custom (`<PermissionGate>`).
+* **State Management Ibrido**:
+  * **Pinia (`useCartStore`)**: Gestione dello stato globale persistente del carrello.
+  * **Provide / Inject (`CheckoutKey`)**: Contesto transitorio a memoria isolata per il flusso di checkout multi-step.
+* **Architecture Decision Records (ADR)**: Documentazione formale delle scelte architetturali disponibile in `docs/adr/`.
 
-## Type Support for `.vue` Imports in TS
+---
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## 🧪 Strategia di Testing
 
-## Customize configuration
+La piattaforma adotta il principio della piramide di testing:
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+* **Unit & Component Testing (Vitest)**:
+  * Test isolati di composables, form validation e store Pinia.
+* **End-to-End Testing (Playwright)**:
+  * Copertura multi-browser (Chromium, Firefox) per il flusso critico di checkout multi-step con navigazione avanti/indietro e verifica di persistenza dei dati.
 
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
+```bash
+# Esecuzione Unit Test
 npm run test:unit
-```
 
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
-
-```sh
-# Install browsers for the first run
-npx playwright install
-
-# When testing on CI, must build the project first
-npm run build
-
-# Runs the end-to-end tests
-npm run test:e2e
-# Runs the tests only on Chromium
-npm run test:e2e -- --project=chromium
-# Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
-# Runs the tests in debug mode
-npm run test:e2e -- --debug
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+# Esecuzione Test E2E
+npx playwright test --project=chromium
